@@ -55,11 +55,20 @@ jobs:
           echo "zip_name=$ZIP_NAME" >> $GITHUB_OUTPUT
           echo "Created $ZIP_NAME ($(du -h $ZIP_NAME | cut -f1))"
 
+      - name: Build .crx package
+        if: ${{ secrets.CRX_PRIVATE_KEY != '' }}
+        run: |
+          echo "${{ secrets.CRX_PRIVATE_KEY }}" | base64 -d > key.pem
+          VERSION="${{ steps.version.outputs.version }}"
+          node scripts/build-crx.js "oj2md-v${VERSION}.zip" key.pem "oj2md-v${VERSION}.crx"
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           name: "v${{ steps.version.outputs.version }}"
           tag_name: "${{ github.ref_name || format('v{0}', inputs.version) }}"
-          files: "oj2md-v${{ steps.version.outputs.version }}.zip"
+          files: |
+            oj2md-v${{ steps.version.outputs.version }}.zip
+            oj2md-v${{ steps.version.outputs.version }}.crx
           generate_release_notes: true
           draft: false
