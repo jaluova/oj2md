@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "OJ2MD - OJ 题目转 Markdown",
+  "version": "1.0.0",
+  "description": "一键复制 OJ 题目为 Markdown。支持 HDU OJ（新旧两版前端），可扩展更多平台。",
+  "permissions": ["activeTab"],
+  "host_permissions": [
+    "http://acm.hdu.edu.cn/*",
+    "https://acm.hdu.edu.cn/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://acm.hdu.edu.cn/showproblem.php*",
+        "https://acm.hdu.edu.cn/contest/problem*"
+      ],
+      "js": [
+        "core/problem-model.js",
+        "core/markdown-renderer.js",
+        "parsers/base-parser.js",
+        "parsers/hdu-parser.js",
+        "content/parser-registry.js",
+        "utils/toast.js",
+        "utils/clipboard.js",
+        "utils/encoding.js",
+        "content/content.js"
+      ],
+      "css": ["content/content.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "OJ2MD - 复制为 Markdown",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

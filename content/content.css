@@ -1,0 +1,61 @@
+.oj2md-float-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2147483647;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #1A5CC8;
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+
+.oj2md-float-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.oj2md-float-btn:active {
+  transform: scale(0.95);
+}
+
+/* Toast */
+.oj2md-toast {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-120%);
+  z-index: 2147483647;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.oj2md-toast-visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+.oj2md-toast-success {
+  background: #2e7d32;
+}
+
+.oj2md-toast-error {
+  background: #c62828;
+}

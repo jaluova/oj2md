@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 260px;
+    padding: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    color: #333;
+    background: #fff;
+  }
+  .header {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1A5CC8;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .status {
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .status-supported { background: #e8f5e9; color: #2e7d32; }
+  .status-unsupported { background: #fafafa; color: #888; }
+  .oj-name { font-weight: bold; }
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background: #1A5CC8;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  button:hover { background: #1549a0; }
+  button:disabled { background: #bbb; cursor: not-allowed; }
+  button:active { transform: scale(0.98); }
+  .result {
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: center;
+    min-height: 18px;
+  }
+  .result-success { color: #2e7d32; }
+  .result-error { color: #c62828; }
+  .footer {
+    margin-top: 12px;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="header">OJ2MD</div>
+  <div class="status status-unsupported" id="status">正在检测...</div>
+  <button id="copyBtn" disabled>Copy as Markdown</button>
+  <div class="result" id="result"></div>
+  <div class="footer" id="footer"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
