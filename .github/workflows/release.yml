@@ -56,11 +56,16 @@ jobs:
           echo "Created $ZIP_NAME ($(du -h $ZIP_NAME | cut -f1))"
 
       - name: Build .crx package
-        if: ${{ secrets.CRX_PRIVATE_KEY != '' }}
         run: |
-          echo "${{ secrets.CRX_PRIVATE_KEY }}" | base64 -d > key.pem
+          if [ -z "$CRX_KEY" ]; then
+            echo "CRX_PRIVATE_KEY not set, skipping .crx build"
+            exit 0
+          fi
+          echo "$CRX_KEY" | base64 -d > key.pem
           VERSION="${{ steps.version.outputs.version }}"
           node scripts/build-crx.js "oj2md-v${VERSION}.zip" key.pem "oj2md-v${VERSION}.crx"
+        env:
+          CRX_KEY: ${{ secrets.CRX_PRIVATE_KEY }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
