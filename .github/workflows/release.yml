@@ -1,0 +1,65 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g. 1.0.1)'
+        required: true
+        type: string
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            VERSION="${GITHUB_REF#refs/tags/v}"
+          else
+            VERSION="${{ inputs.version }}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Update manifest version
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          jq --arg v "$VERSION" '.version = $v' manifest.json > manifest.tmp.json
+          mv manifest.tmp.json manifest.json
+          echo "Updated manifest.json to version $VERSION"
+
+      - name: Create extension zip
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          ZIP_NAME="oj2md-v${VERSION}.zip"
+          zip -r "$ZIP_NAME" \
+            manifest.json \
+            content/ \
+            core/ \
+            icons/ \
+            parsers/ \
+            popup/ \
+            utils/ \
+            README.md \
+            LICENSE \
+            -x "parsers/_template.js" "icons/icon.svg"
+          echo "zip_name=$ZIP_NAME" >> $GITHUB_OUTPUT
+          echo "Created $ZIP_NAME ($(du -h $ZIP_NAME | cut -f1))"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "v${{ steps.version.outputs.version }}"
+          tag_name: "${{ github.ref_name || format('v{0}', inputs.version) }}"
+          files: "oj2md-v${{ steps.version.outputs.version }}.zip"
+          generate_release_notes: true
+          draft: false
