@@ -2,7 +2,6 @@ const PARSER_REGISTRY = [
   HduParser,
   CfParser,
   AtCoderParser,
-  NuaaParser,
 ];
 
 class ParserRegistry {

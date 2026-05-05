@@ -27,7 +27,7 @@
 -   **One-click copy** — Click the draggable floating icon, or use the toolbar popup
 -   **Clean Markdown output** — Title, time/memory limits, description, input/output, samples — all properly formatted
 -   **Math formula preservation** — Auto-detects KaTeX & MathJax, restores `$...$` / `$$...$$` LaTeX
--   **Multi-platform** — HDU OJ / Codeforces / AtCoder / NUAA OJ, extensible to any OJ
+-   **Multi-platform** — HDU OJ / Codeforces / AtCoder, extensible to any OJ
 -   **Cross-browser** — Works on Chrome and Firefox (Manifest V3)
 -   **🤖 AI-powered extension** — Built-in Claude Code skill: one command to add a new OJ
 
@@ -107,7 +107,6 @@ For each case, output A + B in one line.
 | [HDU OJ](http://acm.hdu.edu.cn) | `showproblem.php` / `contest/problem` | KaTeX |
 | [Codeforces](https://codeforces.com) | `/problemset/problem/*` / `/contest/*/problem/*` / `/gym/*/problem/*` | MathJax |
 | [AtCoder](https://atcoder.jp) | `/contests/*/tasks/*` | KaTeX |
-| [NUAA OJ](https://oj.nuaa.edu.cn) | `/contest/*/problem/*` | KaTeX |
 
 Contributions welcome!
 
@@ -179,7 +178,6 @@ oj2md/
 │   ├── hdu-parser.js         # HDU OJ
 │   ├── cf-parser.js          # Codeforces
 │   ├── atcoder-parser.js     # AtCoder
-│   ├── nuaa-parser.js        # NUAA OJ
 │   └── _template.js          # Parser template
 ├── content/
 │   ├── content.js            # Draggable floating button + messaging

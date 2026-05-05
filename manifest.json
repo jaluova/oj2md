@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "OJ2MD - OJ 题目转 Markdown",
   "version": "1.1.0",
-  "description": "一键复制 OJ 题目为 Markdown。支持 HDU OJ / Codeforces / AtCoder / NUAA OJ，可通过 AI Skill 无限扩展。",
+  "description": "一键复制 OJ 题目为 Markdown。支持 HDU OJ / Codeforces / AtCoder，可通过 AI Skill 无限扩展。",
   "browser_specific_settings": {
     "gecko": {
       "id": "oj2md@jaluova.github.io",
@@ -14,8 +14,7 @@
     "http://acm.hdu.edu.cn/*",
     "https://acm.hdu.edu.cn/*",
     "https://codeforces.com/*",
-    "https://atcoder.jp/*",
-    "https://oj.nuaa.edu.cn/*"
+    "https://atcoder.jp/*"
   ],
   "content_scripts": [
     {
@@ -25,8 +24,7 @@
         "https://codeforces.com/problemset/problem/*",
         "https://codeforces.com/contest/*/problem/*",
         "https://codeforces.com/gym/*/problem/*",
-        "https://atcoder.jp/contests/*/tasks/*",
-        "https://oj.nuaa.edu.cn/contest/*/problem/*"
+        "https://atcoder.jp/contests/*/tasks/*"
       ],
       "js": [
         "core/problem-model.js",
@@ -35,7 +33,6 @@
         "parsers/hdu-parser.js",
         "parsers/cf-parser.js",
         "parsers/atcoder-parser.js",
-        "parsers/nuaa-parser.js",
         "content/parser-registry.js",
         "utils/toast.js",
         "utils/clipboard.js",

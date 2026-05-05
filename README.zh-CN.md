@@ -27,7 +27,7 @@
 -   **一键复制** — 右下角可拖动的悬浮图标，点击复制，或通过扩展 popup 一键复制
 -   **完整格式** — 自动提取标题、时间/内存限制、题目描述、输入输出、样例等，转换为规范 Markdown
 -   **数学公式还原** — 自动识别 KaTeX / MathJax 公式并还原为 `$...$` / `$$...$$` LaTeX 格式
--   **多平台支持** — 已支持 HDU OJ / Codeforces / AtCoder / NUAA OJ，可无限扩展
+-   **多平台支持** — 已支持 HDU OJ / Codeforces / AtCoder，可无限扩展
 -   **跨浏览器** — 同时兼容 Chrome 和 Firefox（Manifest V3）
 -   **🤖 AI 辅助扩展** — 内置 Claude Code Skill，一句命令即可添加新 OJ 平台
 
@@ -107,7 +107,6 @@ For each case, output A + B in one line.
 | [HDU OJ](http://acm.hdu.edu.cn) | `showproblem.php` / `contest/problem` | KaTeX |
 | [Codeforces](https://codeforces.com) | `/problemset/problem/*` / `/contest/*/problem/*` / `/gym/*/problem/*` | MathJax |
 | [AtCoder](https://atcoder.jp) | `/contests/*/tasks/*` | KaTeX |
-| [NUAA OJ](https://oj.nuaa.edu.cn) | `/contest/*/problem/*` | KaTeX |
 
 欢迎贡献新平台 Parser！
 
@@ -179,7 +178,6 @@ oj2md/
 │   ├── hdu-parser.js         # HDU OJ 解析器
 │   ├── cf-parser.js          # Codeforces 解析器
 │   ├── atcoder-parser.js     # AtCoder 解析器
-│   ├── nuaa-parser.js        # NUAA OJ 解析器
 │   └── _template.js          # 新 Parser 模板
 ├── content/
 │   ├── content.js            # 内容脚本（可拖动悬浮按钮、消息处理）
