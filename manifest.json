@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "OJ2MD - OJ 题目转 Markdown",
   "version": "1.1.0",
-  "description": "一键复制 OJ 题目为 Markdown。支持 HDU OJ（新旧两版前端），可扩展更多平台。",
+  "description": "一键复制 OJ 题目为 Markdown。支持 HDU OJ / Codeforces / AtCoder / NUAA OJ，可通过 AI Skill 无限扩展。",
   "browser_specific_settings": {
     "gecko": {
       "id": "oj2md@jaluova.github.io",
