@@ -62,8 +62,9 @@ class MarkdownRenderer {
   static _htmlToMarkdown(html, baseUrl) {
     let text = html;
 
-    // Strip wrapper tags
-    text = text.replace(/<\/?(?:div|span|font|center)\b[^>]*>/gi, '');
+    // ═══════════════════════════════════════════════════════════
+    //  Block-level elements
+    // ═══════════════════════════════════════════════════════════
 
     // <br> → newline
     text = text.replace(/<br\s*\/?>/gi, '\n');
@@ -72,11 +73,54 @@ class MarkdownRenderer {
     text = text.replace(/<p\b[^>]*>/gi, '\n');
     text = text.replace(/<\/p>/gi, '\n');
 
+    // <pre> → code fence
+    text = text.replace(/<pre\b[^>]*>/gi, '\n```\n');
+    text = text.replace(/<\/pre>/gi, '\n```\n');
+
+    // <h1>–<h6> → #
+    text = text.replace(/<\/?h[1-6]\b[^>]*>/gi, '\n## ');
+
+    // <hr> → ---
+    text = text.replace(/<hr\b[^>]*\/?>/gi, '\n---\n');
+
+    // <ul> / <ol> → newlines around list block
+    text = text.replace(/<\/?(?:ul|ol)\b[^>]*>/gi, '\n');
+    // <li> → bullet
+    text = text.replace(/<li\b[^>]*>/gi, '\n- ');
+    text = text.replace(/<\/li>/gi, '');
+
+    // <table> / <tr> / <td> / <th> → newlines
+    text = text.replace(/<table\b[^>]*>/gi, '\n');
+    text = text.replace(/<\/table>/gi, '\n');
+    text = text.replace(/<tr\b[^>]*>/gi, '');
+    text = text.replace(/<\/tr>/gi, '\n');
+    text = text.replace(/<t[dh]\b[^>]*>/gi, '| ');
+    text = text.replace(/<\/t[dh]>/gi, ' ');
+
+    // <blockquote> → >
+    text = text.replace(/<blockquote\b[^>]*>/gi, '\n> ');
+    text = text.replace(/<\/blockquote>/gi, '\n');
+
+    // ═══════════════════════════════════════════════════════════
+    //  Inline elements
+    // ═══════════════════════════════════════════════════════════
+
     // <img> → ![]()
     text = text.replace(/<img\b[^>]*src\s*=\s*["']?([^"'\s>]+)["']?[^>]*>/gi, (match, src) => {
       const fullUrl = MarkdownRenderer._resolveUrl(src, baseUrl);
       return `\n![image](${fullUrl})\n`;
     });
+
+    // <a href> → [text](href)
+    text = text.replace(/<a\b[^>]*href\s*=\s*["']?([^"'\s>]+)["']?[^>]*>([\s\S]*?)<\/a>/gi, (match, href, inner) => {
+      const fullUrl = MarkdownRenderer._resolveUrl(href, baseUrl);
+      const innerText = inner.replace(/<[^>]+>/g, '').trim();
+      return `[${innerText}](${fullUrl})`;
+    });
+
+    // <code> → `code`
+    text = text.replace(/<code\b[^>]*>/gi, '`');
+    text = text.replace(/<\/code>/gi, '`');
 
     // <i>/<em> → *
     text = text.replace(/<\/?i\b[^>]*>/gi, '*');
@@ -86,24 +130,48 @@ class MarkdownRenderer {
     text = text.replace(/<\/?b\b[^>]*>/gi, '**');
     text = text.replace(/<\/?strong\b[^>]*>/gi, '**');
 
-    // <pre> → code fence
-    text = text.replace(/<pre\b[^>]*>/gi, '\n```\n');
-    text = text.replace(/<\/pre>/gi, '\n```\n');
+    // <sub> / <sup>
+    text = text.replace(/<sub\b[^>]*>/gi, '~');
+    text = text.replace(/<\/sub>/gi, '~');
+    text = text.replace(/<sup\b[^>]*>/gi, '^');
+    text = text.replace(/<\/sup>/gi, '^');
 
-    // <a href> → [text](href)
-    text = text.replace(/<a\b[^>]*href\s*=\s*["']?([^"'\s>]+)["']?[^>]*>([\s\S]*?)<\/a>/gi, (match, href, inner) => {
-      const fullUrl = MarkdownRenderer._resolveUrl(href, baseUrl);
-      const innerText = inner.replace(/<[^>]+>/g, '').trim();
-      return `[${innerText}](${fullUrl})`;
-    });
+    // <del> / <s> → ~~
+    text = text.replace(/<\/?(?:del|s)\b[^>]*>/gi, '~~');
 
-    // Decode entities
+    // Strip layout-wrapper tags (div/span/font/center)
+    text = text.replace(/<\/?(?:div|span|font|center)\b[^>]*>/gi, '');
+
+    // Decode entities (after tag processing so we don't break HTML)
     text = text.replace(/&nbsp;/gi, ' ');
     text = text.replace(/&lt;/gi, '<');
     text = text.replace(/&gt;/gi, '>');
     text = text.replace(/&amp;/gi, '&');
     text = text.replace(/&quot;/gi, '"');
     text = text.replace(/&#0*39;/gi, "'");
+    text = text.replace(/&minus;/gi, '−');
+    text = text.replace(/&ge;/gi, '≥');
+    text = text.replace(/&le;/gi, '≤');
+    text = text.replace(/&times;/gi, '×');
+    text = text.replace(/&hellip;/gi, '…');
+    text = text.replace(/&mdash;/gi, '—');
+    text = text.replace(/&ndash;/gi, '–');
+    text = text.replace(/&ne;/gi, '≠');
+    text = text.replace(/&equiv;/gi, '≡');
+    text = text.replace(/&sim;/gi, '∼');
+    text = text.replace(/&prop;/gi, '∝');
+    text = text.replace(/&infin;/gi, '∞');
+    text = text.replace(/&radic;/gi, '√');
+    text = text.replace(/&int;/gi, '∫');
+    text = text.replace(/&sum;/gi, '∑');
+    text = text.replace(/&prod;/gi, '∏');
+    text = text.replace(/&perp;/gi, '⊥');
+    text = text.replace(/&parallel;/gi, '∥');
+    text = text.replace(/&rarr;/gi, '→');
+    text = text.replace(/&larr;/gi, '←');
+    text = text.replace(/&uarr;/gi, '↑');
+    text = text.replace(/&darr;/gi, '↓');
+    text = text.replace(/&harr;/gi, '↔');
 
     // Collapse whitespace
     text = text.replace(/\n{3,}/g, '\n\n');
