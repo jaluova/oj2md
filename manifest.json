@@ -14,7 +14,8 @@
     "http://acm.hdu.edu.cn/*",
     "https://acm.hdu.edu.cn/*",
     "https://codeforces.com/*",
-    "https://atcoder.jp/*"
+    "https://atcoder.jp/*",
+    "https://oj.nuaa.edu.cn/*"
   ],
   "content_scripts": [
     {
@@ -24,7 +25,8 @@
         "https://codeforces.com/problemset/problem/*",
         "https://codeforces.com/contest/*/problem/*",
         "https://codeforces.com/gym/*/problem/*",
-        "https://atcoder.jp/contests/*/tasks/*"
+        "https://atcoder.jp/contests/*/tasks/*",
+        "https://oj.nuaa.edu.cn/contest/*/problem/*"
       ],
       "js": [
         "core/problem-model.js",
@@ -33,6 +35,7 @@
         "parsers/hdu-parser.js",
         "parsers/cf-parser.js",
         "parsers/atcoder-parser.js",
+        "parsers/nuaa-parser.js",
         "content/parser-registry.js",
         "utils/toast.js",
         "utils/clipboard.js",
