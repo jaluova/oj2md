@@ -95,11 +95,28 @@ For each case, output A + B in one line.
 |------|---------|---------|------|
 | [HDU OJ](http://acm.hdu.edu.cn) | `showproblem.php` | `contest/problem` | ✅ 已支持 |
 
-欢迎贡献新平台 Parser！参见下方 [扩展指南](#扩展新平台)。
+欢迎贡献新平台 Parser！
 
-## 扩展新平台 / Add a New OJ
+### 🤖 AI 辅助创建（推荐）
 
-项目架构基于 **Parser 插件机制**，为新的 OJ 平台添加支持只需 3 步：
+本项目内置了 **Claude Code Skill** — 你只需要提供一个 OJ 题目页的 URL，AI 会自动分析页面结构、生成 Parser、注册并配置权限：
+
+```
+/add-parser https://example-oj.com/problem/123
+```
+
+Skill 会：
+1. 分析页面 DOM（标题/限制/描述/输入输出/样例/数学公式）
+2. 自动创建 `parsers/xxx-parser.js`
+3. 注册到 `parser-registry.js` 并更新 `manifest.json`
+4. 处理 KaTeX / MathJax 等数学公式还原
+
+### 📝 手动创建
+
+项目架构基于 **Parser 插件机制**，手动添加也只需 3 步：
+
+<details>
+<summary>展开手动步骤</summary>
 
 ### 1. 创建 Parser
 
@@ -127,12 +144,14 @@ class XxxParser extends BaseParser {
 在 `content/parser-registry.js` 中添加到注册表：
 
 ```js
-const PARSER_REGISTRY = [HduParser, XxxParser];
+const PARSER_REGISTRY = [HduParser, CfParser, XxxParser];
 ```
 
 ### 3. 配置权限
 
 在 `manifest.json` 中添加域名到 `host_permissions` 和 `content_scripts.matches`。
+
+</details>
 
 ## 架构 / Architecture
 
