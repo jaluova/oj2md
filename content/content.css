@@ -3,21 +3,27 @@
   bottom: 24px;
   right: 24px;
   z-index: 2147483647;
-  width: 48px;
-  height: 48px;
-  padding: 4px;
-  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 8px;
   background: transparent;
   border: none;
   cursor: grab;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
   outline: none;
   user-select: none;
   -webkit-user-select: none;
-  transition: box-shadow 0.15s;
+  opacity: 0.85;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+  transition: opacity 0.15s, filter 0.15s;
+}
+
+.oj2md-float-btn:hover {
+  opacity: 1;
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,0.35));
 }
 
 .oj2md-float-btn:active {
@@ -26,16 +32,9 @@
 
 .oj2md-float-btn.dragging {
   cursor: grabbing;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.4));
   transition: none;
-}
-
-.oj2md-float-btn:hover {
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
-}
-
-.oj2md-float-btn.dragging:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 /* Toast */
