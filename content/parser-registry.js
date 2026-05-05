@@ -1,5 +1,6 @@
 const PARSER_REGISTRY = [
   HduParser,
+  CfParser,
 ];
 
 class ParserRegistry {

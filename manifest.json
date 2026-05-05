@@ -12,19 +12,24 @@
   "permissions": ["activeTab", "clipboardWrite"],
   "host_permissions": [
     "http://acm.hdu.edu.cn/*",
-    "https://acm.hdu.edu.cn/*"
+    "https://acm.hdu.edu.cn/*",
+    "https://codeforces.com/*"
   ],
   "content_scripts": [
     {
       "matches": [
         "http://acm.hdu.edu.cn/showproblem.php*",
-        "https://acm.hdu.edu.cn/contest/problem*"
+        "https://acm.hdu.edu.cn/contest/problem*",
+        "https://codeforces.com/problemset/problem/*",
+        "https://codeforces.com/contest/*/problem/*",
+        "https://codeforces.com/gym/*/problem/*"
       ],
       "js": [
         "core/problem-model.js",
         "core/markdown-renderer.js",
         "parsers/base-parser.js",
         "parsers/hdu-parser.js",
+        "parsers/cf-parser.js",
         "content/parser-registry.js",
         "utils/toast.js",
         "utils/clipboard.js",
