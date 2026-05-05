@@ -10,6 +10,11 @@ on:
         description: 'Version (e.g. 1.0.1)'
         required: true
         type: string
+      build_crx:
+        description: 'Build signed .crx package (requires CRX_PRIVATE_KEY secret)'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   release:
@@ -56,14 +61,17 @@ jobs:
           echo "Created $ZIP_NAME ($(du -h $ZIP_NAME | cut -f1))"
 
       - name: Build .crx package
+        id: crx
+        if: github.event_name == 'workflow_dispatch' && inputs.build_crx == true
         run: |
           if [ -z "$CRX_KEY" ]; then
-            echo "CRX_PRIVATE_KEY not set, skipping .crx build"
-            exit 0
+            echo "::error::CRX_PRIVATE_KEY secret is not set, cannot build .crx"
+            exit 1
           fi
           echo "$CRX_KEY" | base64 -d > key.pem
           VERSION="${{ steps.version.outputs.version }}"
           node scripts/build-crx.js "oj2md-v${VERSION}.zip" key.pem "oj2md-v${VERSION}.crx"
+          echo "crx_name=oj2md-v${VERSION}.crx" >> $GITHUB_OUTPUT
         env:
           CRX_KEY: ${{ secrets.CRX_PRIVATE_KEY }}
 
@@ -74,6 +82,16 @@ jobs:
           tag_name: "${{ github.ref_name || format('v{0}', inputs.version) }}"
           files: |
             oj2md-v${{ steps.version.outputs.version }}.zip
-            oj2md-v${{ steps.version.outputs.version }}.crx
           generate_release_notes: true
+          draft: false
+
+      - name: Upload .crx to Release
+        if: steps.crx.outcome == 'success'
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "v${{ steps.version.outputs.version }}"
+          tag_name: "${{ github.ref_name || format('v{0}', inputs.version) }}"
+          files: |
+            oj2md-v${{ steps.version.outputs.version }}.crx
+          generate_release_notes: false
           draft: false
