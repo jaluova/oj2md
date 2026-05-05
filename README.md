@@ -91,9 +91,11 @@ For each case, output A + B in one line.
 
 ## 支持的 OJ / Supported Platforms
 
-| 平台 | 旧版前端 | 新版前端 | 状态 |
+| 平台 | URL 模式 | 数学公式 | 状态 |
 |------|---------|---------|------|
-| [HDU OJ](http://acm.hdu.edu.cn) | `showproblem.php` | `contest/problem` | ✅ 已支持 |
+| [HDU OJ](http://acm.hdu.edu.cn) | `showproblem.php` / `contest/problem` | KaTeX | ✅ 已支持 |
+| [Codeforces](https://codeforces.com) | `/problemset/problem/*` / `/contest/*/problem/*` / `/gym/*/problem/*` | MathJax | ✅ 已支持 |
+| [AtCoder](https://atcoder.jp) | `/contests/*/tasks/*` | KaTeX | ✅ 已支持 |
 
 欢迎贡献新平台 Parser！
 

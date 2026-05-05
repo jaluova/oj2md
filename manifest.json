@@ -13,7 +13,8 @@
   "host_permissions": [
     "http://acm.hdu.edu.cn/*",
     "https://acm.hdu.edu.cn/*",
-    "https://codeforces.com/*"
+    "https://codeforces.com/*",
+    "https://atcoder.jp/*"
   ],
   "content_scripts": [
     {
@@ -22,7 +23,8 @@
         "https://acm.hdu.edu.cn/contest/problem*",
         "https://codeforces.com/problemset/problem/*",
         "https://codeforces.com/contest/*/problem/*",
-        "https://codeforces.com/gym/*/problem/*"
+        "https://codeforces.com/gym/*/problem/*",
+        "https://atcoder.jp/contests/*/tasks/*"
       ],
       "js": [
         "core/problem-model.js",
@@ -30,6 +32,7 @@
         "parsers/base-parser.js",
         "parsers/hdu-parser.js",
         "parsers/cf-parser.js",
+        "parsers/atcoder-parser.js",
         "content/parser-registry.js",
         "utils/toast.js",
         "utils/clipboard.js",
