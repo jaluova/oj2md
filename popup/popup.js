@@ -19,7 +19,7 @@
         // Content script not injected — page not supported or not matched
         statusEl.textContent = '当前页面不是支持的 OJ 题目页';
         statusEl.className = 'status status-unsupported';
-        footerEl.textContent = '支持的 OJ: HDU OJ';
+        footerEl.textContent = '支持的 OJ: HDU OJ / Codeforces / AtCoder';
         return;
       }
 
@@ -27,11 +27,12 @@
         statusEl.innerHTML = `当前: <span class="oj-name">${response.ojName}</span>`;
         statusEl.className = 'status status-supported';
         copyBtn.disabled = false;
-        footerEl.textContent = `已注册 ${response.parserCount} 个解析器`;
+        const names = response.parserNames || [];
+        footerEl.textContent = `已注册 ${response.parserCount} 个解析器: ${names.join(' / ')}`;
       } else {
         statusEl.textContent = '当前页面不支持解析';
         statusEl.className = 'status status-unsupported';
-        footerEl.textContent = '支持的 OJ: HDU OJ';
+        footerEl.textContent = '支持的 OJ: HDU OJ / Codeforces / AtCoder';
       }
     });
   });

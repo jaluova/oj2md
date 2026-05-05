@@ -21,4 +21,8 @@ class ParserRegistry {
   static get count() {
     return PARSER_REGISTRY.length;
   }
+
+  static get names() {
+    return PARSER_REGISTRY.map(P => P.ojName);
+  }
 }

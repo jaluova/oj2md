@@ -135,7 +135,8 @@
       sendResponse({
         supported: true,
         ojName: Parser.ojName,
-        parserCount: ParserRegistry.count
+        parserCount: ParserRegistry.count,
+        parserNames: ParserRegistry.names
       });
       return false;
     }
