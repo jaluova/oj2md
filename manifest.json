@@ -3,7 +3,13 @@
   "name": "OJ2MD - OJ 题目转 Markdown",
   "version": "1.0.0",
   "description": "一键复制 OJ 题目为 Markdown。支持 HDU OJ（新旧两版前端），可扩展更多平台。",
-  "permissions": ["activeTab"],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "oj2md@jaluova.github.io",
+      "strict_min_version": "112.0"
+    }
+  },
+  "permissions": ["activeTab", "clipboardWrite"],
   "host_permissions": [
     "http://acm.hdu.edu.cn/*",
     "https://acm.hdu.edu.cn/*"
